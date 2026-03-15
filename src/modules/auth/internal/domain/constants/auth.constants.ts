@@ -1,0 +1,3 @@
+export const BCRYPT_SALT_ROUNDS = 12;
+export const ACCOUNT_NUMBER_MIN = 1000000000;
+export const ACCOUNT_NUMBER_MAX = 9999999999;
