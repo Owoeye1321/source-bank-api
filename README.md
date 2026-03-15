@@ -2,12 +2,15 @@
 
 A wallet system REST API built with NestJS, TypeORM, and MySQL. Supports user registration and authentication, wallet deposits, peer-to-peer transfers (by email or account number), and transaction history with pagination.
 
+**Live Environment**: https://source-bank-api.onrender.com
+
 ## Table of Contents
 
 - [Tech Stack](#tech-stack)
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
 - [Database Migrations](#database-migrations)
+- [Postman Collection](#postman-collection)
 - [API Endpoints](#api-endpoints)
 - [Database Schema Design](#database-schema-design)
 - [Concurrency and Race Condition Handling](#concurrency-and-race-condition-handling)
@@ -194,6 +197,17 @@ The project uses [TypeORM migrations](https://typeorm.io/migrations) to manage s
    ```bash
    npm run migration:run
    ```
+
+## Postman Collection
+
+A Postman collection is included in the repository at [`source-bank-api.postman_collection.json`](./source-bank-api.postman_collection.json). It contains pre-configured requests for all API endpoints.
+
+To get started:
+
+1. Open Postman and click **Import**.
+2. Select the `source-bank-api.postman_collection.json` file from the project root.
+3. Update the collection's base URL variable to `https://source-bank-api.onrender.com` (or `http://localhost:3000` for local development).
+4. Start testing the API.
 
 ## API Endpoints
 
