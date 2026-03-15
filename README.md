@@ -7,6 +7,7 @@ A wallet system REST API built with NestJS, TypeORM, and MySQL. Supports user re
 - [Tech Stack](#tech-stack)
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
+- [Database Migrations](#database-migrations)
 - [API Endpoints](#api-endpoints)
 - [Database Schema Design](#database-schema-design)
 - [Concurrency and Race Condition Handling](#concurrency-and-race-condition-handling)
@@ -66,6 +67,8 @@ Dependencies point inward: **Infrastructure -> Application -> Domain**. The doma
 
 ### Option 1: Docker Compose (Recommended)
 
+Docker Compose handles the full setup — it provisions the MySQL database, creates the schema, and starts the API. No manual database or migration steps are needed.
+
 1. Clone the repository and create a `.env` file in the project root:
 
 ```env
@@ -89,13 +92,48 @@ The API will be available at `http://localhost:3000`.
 
 ### Option 2: Local Setup
 
-1. Ensure MySQL is running and create a database:
+#### 1. Install MySQL 8
+
+**macOS (Homebrew)**:
+
+```bash
+brew install mysql
+brew services start mysql
+```
+
+**Ubuntu / Debian**:
+
+```bash
+sudo apt update
+sudo apt install mysql-server
+sudo systemctl start mysql
+```
+
+**Windows**: Download and run the installer from the [official MySQL downloads page](https://dev.mysql.com/downloads/mysql/).
+
+#### 2. Create the Database
+
+Log in to the MySQL shell and create the database:
+
+```bash
+mysql -u root -p
+```
 
 ```sql
 CREATE DATABASE source_bank;
 ```
 
-2. Create a `.env` file:
+Optionally, create a dedicated user instead of using root:
+
+```sql
+CREATE USER 'source_bank_user'@'localhost' IDENTIFIED BY 'your_password';
+GRANT ALL PRIVILEGES ON source_bank.* TO 'source_bank_user'@'localhost';
+FLUSH PRIVILEGES;
+```
+
+#### 3. Configure Environment Variables
+
+Create a `.env` file in the project root:
 
 ```env
 PORT=3000
@@ -108,19 +146,54 @@ JWT_SECRET=your_jwt_secret_here
 JWT_EXPIRATION_SECONDS=86400
 ```
 
-3. Install dependencies and start:
+Update `DB_USERNAME` and `DB_PASSWORD` if you created a dedicated user above.
+
+#### 4. Install Dependencies
 
 ```bash
 npm install
+```
+
+#### 5. Run Database Migrations
+
+Run the init migration to create the `users`, `wallets`, and `transactions` tables:
+
+```bash
+npm run migration:run
+```
+
+#### 6. Start the API
+
+```bash
 npm run start:dev
 ```
 
-The schema is auto-synchronized in non-production environments. For production, use migrations:
+The API will be available at `http://localhost:3000`.
 
-```bash
-npm run migration:generate --name=InitialMigration
-npm run migration:run
-```
+> **Note**: In development mode, TypeORM's `synchronize` option is enabled, so schema changes are applied automatically. For production, always use migrations (see below).
+
+### Database Migrations
+
+The project uses [TypeORM migrations](https://typeorm.io/migrations) to manage schema changes. Migration files live in `src/migrations/`.
+
+| Command | Description |
+|---------|-------------|
+| `npm run migration:run` | Build the project and run all pending migrations |
+| `npm run migration:generate --name=MigrationName` | Auto-generate a new migration from entity changes |
+| `npm run migration:revert` | Revert the most recently executed migration |
+
+**Typical workflow**:
+
+1. Modify an entity (e.g. add a column to `UserEntity`).
+2. Generate a migration:
+   ```bash
+   npm run migration:generate --name=AddColumnToUsers
+   ```
+3. Review the generated file in `src/migrations/`.
+4. Apply it:
+   ```bash
+   npm run migration:run
+   ```
 
 ## API Endpoints
 

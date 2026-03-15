@@ -1,306 +1,857 @@
 {
   "info": {
+    "_postman_id": "27677aba-f52b-4c1f-b407-9283574caf95",
     "name": "Source Bank API",
     "description": "Wallet System REST API — register, deposit, transfer, and view transactions.",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53205313",
+    "_collection_link": "https://go.postman.co/collection/53205313-27677aba-f52b-4c1f-b407-9283574caf95?source=collection_link"
   },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "http://localhost:3000",
-      "type": "string"
-    },
-    {
-      "key": "token",
-      "value": "",
-      "type": "string"
-    },
-    {
-      "key": "userAToken",
-      "value": "",
-      "type": "string"
-    },
-    {
-      "key": "userBToken",
-      "value": "",
-      "type": "string"
-    },
-    {
-      "key": "userBAccountNumber",
-      "value": "",
-      "type": "string"
-    },
-    {
-      "key": "userBEmail",
-      "value": "userb@example.com",
-      "type": "string"
-    }
-  ],
   "item": [
     {
       "name": "Auth",
       "item": [
         {
-          "name": "Register User A",
-          "event": [
+          "name": "Register",
+          "item": [
             {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "const res = pm.response.json();",
-                  "if (res.success && res.data && res.data.token) {",
-                  "    pm.collectionVariables.set('token', res.data.token);",
-                  "    pm.collectionVariables.set('userAToken', res.data.token);",
-                  "}",
-                  "",
-                  "pm.test('Status is 201', () => pm.response.to.have.status(201));",
-                  "pm.test('Response has token', () => pm.expect(res.data.token).to.be.a('string'));",
-                  "pm.test('Response has accountNumber', () => pm.expect(res.data.accountNumber).to.have.lengthOf(10));",
-                  "pm.test('Email is lowercase', () => pm.expect(res.data.email).to.equal('usera@example.com'));"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"usera@example.com\",\n  \"password\": \"Password123\"\n}"
+              "name": "Register User A",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const res = pm.response.json();",
+                      "if (res.success && res.data && res.data.token) {",
+                      "    pm.collectionVariables.set('token', res.data.token);",
+                      "    pm.collectionVariables.set('userAToken', res.data.token);",
+                      "}",
+                      "",
+                      "pm.test('Status is 201', () => pm.response.to.have.status(201));",
+                      "pm.test('Response has token', () => pm.expect(res.data.token).to.be.a('string'));",
+                      "pm.test('Response has accountNumber', () => pm.expect(res.data.accountNumber).to.have.lengthOf(10));",
+                      "pm.test('Email is lowercase', () => pm.expect(res.data.email).to.equal('usera@example.com'));"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"usera@example.com\",\n  \"password\": \"Password123\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/register",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "register"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Register User A",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"usera@example.com\",\n  \"password\": \"Password123\"\n}"
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/register",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "register"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "X-Powered-By",
+                      "value": "Express"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json; charset=utf-8"
+                    },
+                    {
+                      "key": "Content-Length",
+                      "value": "312"
+                    },
+                    {
+                      "key": "ETag",
+                      "value": "W/\"138-2CQ4551Nt6Z0V360TGu3+7z4BH8\""
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 14 Mar 2026 21:27:44 GMT"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    },
+                    {
+                      "key": "Keep-Alive",
+                      "value": "timeout=5"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"success\": true,\n    \"message\": \"Registration successful\",\n    \"data\": {\n        \"id\": 1,\n        \"email\": \"usera@example.com\",\n        \"accountNumber\": \"2287726211\",\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidXNlcmFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NzM1MjM2NjQsImV4cCI6MTc3MzUyMzc1MH0.HvrtDPj2YUsVT9v4BqoTw2cIVCKCZ_aK4WI0nPlLQ38\"\n    }\n}"
+                }
+              ]
             },
-            "url": {
-              "raw": "{{baseUrl}}/auth/register",
-              "host": ["{{baseUrl}}"],
-              "path": ["auth", "register"]
+            {
+              "name": "Register — Duplicate Email (409)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 409', () => pm.response.to.have.status(409));",
+                      "pm.test('Error message', () => {",
+                      "    const res = pm.response.json();",
+                      "    pm.expect(res.message).to.include('Email already exists');",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"usera@example.com\",\n  \"password\": \"Password123\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/register",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "register"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Register — Duplicate Email (409)",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"usera@example.com\",\n  \"password\": \"Password123\"\n}"
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/register",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "register"
+                      ]
+                    }
+                  },
+                  "status": "Conflict",
+                  "code": 409,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "X-Powered-By",
+                      "value": "Express"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json; charset=utf-8"
+                    },
+                    {
+                      "key": "Content-Length",
+                      "value": "50"
+                    },
+                    {
+                      "key": "ETag",
+                      "value": "W/\"32-V0HjoCsqFVp9mO3eXsuJ602s64g\""
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 14 Mar 2026 21:43:41 GMT"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    },
+                    {
+                      "key": "Keep-Alive",
+                      "value": "timeout=5"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"success\": false,\n    \"message\": \"Email already exists\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Register — Short Password (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 400', () => pm.response.to.have.status(400));"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"short@example.com\",\n  \"password\": \"short\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/register",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "register"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Register — Short Password (400)",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"short@example.com\",\n  \"password\": \"short\"\n}"
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/register",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "register"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "X-Powered-By",
+                      "value": "Express"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json; charset=utf-8"
+                    },
+                    {
+                      "key": "Content-Length",
+                      "value": "114"
+                    },
+                    {
+                      "key": "ETag",
+                      "value": "W/\"72-uifHMS0clfEWkC2ERb/Kb/mcrQw\""
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 14 Mar 2026 21:44:10 GMT"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    },
+                    {
+                      "key": "Keep-Alive",
+                      "value": "timeout=5"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"success\": false,\n    \"message\": \"Validation failed\",\n    \"errors\": [\n        \"password must be longer than or equal to 8 characters\"\n    ]\n}"
+                }
+              ]
+            },
+            {
+              "name": "Register — Invalid Email (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 400', () => pm.response.to.have.status(400));"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"not-an-email\",\n  \"password\": \"Password123\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/register",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "register"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Register — Invalid Email (400)",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"not-an-email\",\n  \"password\": \"Password123\"\n}"
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/register",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "register"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "X-Powered-By",
+                      "value": "Express"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json; charset=utf-8"
+                    },
+                    {
+                      "key": "Content-Length",
+                      "value": "83"
+                    },
+                    {
+                      "key": "ETag",
+                      "value": "W/\"53-1MV5ty0EL+q64mKaaHwpsoMCgNk\""
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 14 Mar 2026 21:43:49 GMT"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    },
+                    {
+                      "key": "Keep-Alive",
+                      "value": "timeout=5"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"success\": false,\n    \"message\": \"Validation failed\",\n    \"errors\": [\n        \"email must be an email\"\n    ]\n}"
+                }
+              ]
+            },
+            {
+              "name": "Register User B",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "const res = pm.response.json();",
+                      "if (res.success && res.data && res.data.token) {",
+                      "    pm.collectionVariables.set('userBToken', res.data.token);",
+                      "    pm.collectionVariables.set('userBAccountNumber', res.data.accountNumber);",
+                      "    pm.collectionVariables.set('userBEmail', res.data.email);",
+                      "}",
+                      "",
+                      "pm.test('Status is 201', () => pm.response.to.have.status(201));",
+                      "pm.test('Response has token', () => pm.expect(res.data.token).to.be.a('string'));",
+                      "pm.test('Response has accountNumber', () => pm.expect(res.data.accountNumber).to.have.lengthOf(10));"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"userb@example.com\",\n  \"password\": \"Password123\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/register",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "register"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Register User B",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"userb@example.com\",\n  \"password\": \"Password123\"\n}"
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/register",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "register"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "X-Powered-By",
+                      "value": "Express"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json; charset=utf-8"
+                    },
+                    {
+                      "key": "Content-Length",
+                      "value": "312"
+                    },
+                    {
+                      "key": "ETag",
+                      "value": "W/\"138-Ku2GKpJU6t7ryhHugaHZOANH5NM\""
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 14 Mar 2026 21:28:07 GMT"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    },
+                    {
+                      "key": "Keep-Alive",
+                      "value": "timeout=5"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"success\": true,\n    \"message\": \"Registration successful\",\n    \"data\": {\n        \"id\": 2,\n        \"email\": \"userb@example.com\",\n        \"accountNumber\": \"8927285575\",\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoidXNlcmJAZXhhbXBsZS5jb20iLCJpYXQiOjE3NzM1MjM2ODcsImV4cCI6MTc3MzUyMzc3M30.rkqWIurs4LSI71maa_AcBOkvuBmUTrNRfSN_WxahsfI\"\n    }\n}"
+                }
+              ]
             }
-          }
+          ]
         },
         {
-          "name": "Register User B",
-          "event": [
+          "name": "Login",
+          "item": [
             {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "const res = pm.response.json();",
-                  "if (res.success && res.data && res.data.token) {",
-                  "    pm.collectionVariables.set('userBToken', res.data.token);",
-                  "    pm.collectionVariables.set('userBAccountNumber', res.data.accountNumber);",
-                  "    pm.collectionVariables.set('userBEmail', res.data.email);",
-                  "}",
-                  "",
-                  "pm.test('Status is 201', () => pm.response.to.have.status(201));",
-                  "pm.test('Response has token', () => pm.expect(res.data.token).to.be.a('string'));",
-                  "pm.test('Response has accountNumber', () => pm.expect(res.data.accountNumber).to.have.lengthOf(10));"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"userb@example.com\",\n  \"password\": \"Password123\"\n}"
+              "name": "Login User A",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "const res = pm.response.json();",
+                      "if (res.success && res.data && res.data.token) {",
+                      "    pm.collectionVariables.set('token', res.data.token);",
+                      "    pm.collectionVariables.set('userAToken', res.data.token);",
+                      "}",
+                      "",
+                      "pm.test('Status is 201', () => pm.response.to.have.status(201));",
+                      "pm.test('Response has token', () => pm.expect(res.data.token).to.be.a('string'));",
+                      "pm.test('Email matches', () => pm.expect(res.data.email).to.equal('usera@example.com'));"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"usera@example.com\",\n  \"password\": \"Password123\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Login User A",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"usera@example.com\",\n  \"password\": \"Password123\"\n}"
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/login",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "login"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "X-Powered-By",
+                      "value": "Express"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json; charset=utf-8"
+                    },
+                    {
+                      "key": "Content-Length",
+                      "value": "305"
+                    },
+                    {
+                      "key": "ETag",
+                      "value": "W/\"131-ld+f2uQOHdxkAZSyGBVlS6JrgUc\""
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 14 Mar 2026 21:45:33 GMT"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    },
+                    {
+                      "key": "Keep-Alive",
+                      "value": "timeout=5"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"success\": true,\n    \"message\": \"Login successful\",\n    \"data\": {\n        \"id\": 1,\n        \"email\": \"usera@example.com\",\n        \"accountNumber\": \"2287726211\",\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidXNlcmFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NzM1MjQ3MzMsImV4cCI6MTc3MzUyNDgxOX0.RTwyH_pfCMTn3SUFFHhzuk37nx32s_vY-ukTAdCah10\"\n    }\n}"
+                }
+              ]
             },
-            "url": {
-              "raw": "{{baseUrl}}/auth/register",
-              "host": ["{{baseUrl}}"],
-              "path": ["auth", "register"]
-            }
-          }
-        },
-        {
-          "name": "Register — Duplicate Email (409)",
-          "event": [
             {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('Status is 409', () => pm.response.to.have.status(409));",
-                  "pm.test('Error message', () => {",
-                  "    const res = pm.response.json();",
-                  "    pm.expect(res.message).to.include('Email already exists');",
-                  "});"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"usera@example.com\",\n  \"password\": \"Password123\"\n}"
+              "name": "Login — Wrong Password (401)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 401', () => pm.response.to.have.status(401));"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"usera@example.com\",\n  \"password\": \"WrongPassword\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Login — Wrong Password (401)",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"usera@example.com\",\n  \"password\": \"WrongPassword\"\n}"
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/login",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "login"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "X-Powered-By",
+                      "value": "Express"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json; charset=utf-8"
+                    },
+                    {
+                      "key": "Content-Length",
+                      "value": "49"
+                    },
+                    {
+                      "key": "ETag",
+                      "value": "W/\"31-VmptvJVCxgMiCaKMQdd9IkNBIdc\""
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 14 Mar 2026 21:45:45 GMT"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    },
+                    {
+                      "key": "Keep-Alive",
+                      "value": "timeout=5"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"success\": false,\n    \"message\": \"Invalid credentials\"\n}"
+                }
+              ]
             },
-            "url": {
-              "raw": "{{baseUrl}}/auth/register",
-              "host": ["{{baseUrl}}"],
-              "path": ["auth", "register"]
-            }
-          }
-        },
-        {
-          "name": "Register — Invalid Email (400)",
-          "event": [
             {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('Status is 400', () => pm.response.to.have.status(400));"
-                ]
-              }
+              "name": "Login — Non-existent Email (401)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 401', () => pm.response.to.have.status(401));"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"ghost@example.com\",\n  \"password\": \"Password123\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Login — Non-existent Email (401)",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"ghost@example.com\",\n  \"password\": \"Password123\"\n}"
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/login",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "login"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "X-Powered-By",
+                      "value": "Express"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json; charset=utf-8"
+                    },
+                    {
+                      "key": "Content-Length",
+                      "value": "49"
+                    },
+                    {
+                      "key": "ETag",
+                      "value": "W/\"31-VmptvJVCxgMiCaKMQdd9IkNBIdc\""
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 14 Mar 2026 21:45:49 GMT"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    },
+                    {
+                      "key": "Keep-Alive",
+                      "value": "timeout=5"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"success\": false,\n    \"message\": \"Invalid credentials\"\n}"
+                }
+              ]
             }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"not-an-email\",\n  \"password\": \"Password123\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/auth/register",
-              "host": ["{{baseUrl}}"],
-              "path": ["auth", "register"]
-            }
-          }
-        },
-        {
-          "name": "Register — Short Password (400)",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('Status is 400', () => pm.response.to.have.status(400));"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"short@example.com\",\n  \"password\": \"short\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/auth/register",
-              "host": ["{{baseUrl}}"],
-              "path": ["auth", "register"]
-            }
-          }
-        },
-        {
-          "name": "Login User A",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "const res = pm.response.json();",
-                  "if (res.success && res.data && res.data.token) {",
-                  "    pm.collectionVariables.set('token', res.data.token);",
-                  "    pm.collectionVariables.set('userAToken', res.data.token);",
-                  "}",
-                  "",
-                  "pm.test('Status is 201', () => pm.response.to.have.status(201));",
-                  "pm.test('Response has token', () => pm.expect(res.data.token).to.be.a('string'));",
-                  "pm.test('Email matches', () => pm.expect(res.data.email).to.equal('usera@example.com'));"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"usera@example.com\",\n  \"password\": \"Password123\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/auth/login",
-              "host": ["{{baseUrl}}"],
-              "path": ["auth", "login"]
-            }
-          }
-        },
-        {
-          "name": "Login — Wrong Password (401)",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('Status is 401', () => pm.response.to.have.status(401));"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"usera@example.com\",\n  \"password\": \"WrongPassword\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/auth/login",
-              "host": ["{{baseUrl}}"],
-              "path": ["auth", "login"]
-            }
-          }
-        },
-        {
-          "name": "Login — Non-existent Email (401)",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('Status is 401', () => pm.response.to.have.status(401));"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"ghost@example.com\",\n  \"password\": \"Password123\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/auth/login",
-              "host": ["{{baseUrl}}"],
-              "path": ["auth", "login"]
-            }
-          }
+          ]
         }
       ]
     },
@@ -326,14 +877,79 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{userAToken}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userAToken}}"
+              }
             ],
             "url": {
               "raw": "{{baseUrl}}/wallet",
-              "host": ["{{baseUrl}}"],
-              "path": ["wallet"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "wallet"
+              ]
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Get Wallet (User A)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userAToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/wallet",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "wallet"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "114"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"72-OJ/lVtXdQSxv4d8AE/Wq9n0agu4\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Mar 2026 22:20:03 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Wallet retrieved\",\n    \"data\": {\n        \"id\": 2,\n        \"accountBalance\": \"0.00\",\n        \"accountNumber\": \"8927285575\"\n    }\n}"
+            }
+          ]
         },
         {
           "name": "Get Wallet — No Auth (401)",
@@ -353,10 +969,67 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/wallet",
-              "host": ["{{baseUrl}}"],
-              "path": ["wallet"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "wallet"
+              ]
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Get Wallet — No Auth (401)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/wallet",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "wallet"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "42"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2a-H4CLXoxSRMwDtqUCBiDzMCvYSTQ\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Mar 2026 22:20:12 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Unauthorized\"\n}"
+            }
+          ]
         },
         {
           "name": "Deposit 5000 (User A)",
@@ -364,7 +1037,6 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "const res = pm.response.json();",
                   "pm.test('Status is 201', () => pm.response.to.have.status(201));",
@@ -375,15 +1047,34 @@
                   "    const curr = parseFloat(res.data.currentBalance);",
                   "    pm.expect(curr - prev).to.equal(5000);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{userAToken}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{userAToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userAToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -391,10 +1082,82 @@
             },
             "url": {
               "raw": "{{baseUrl}}/wallet/deposit",
-              "host": ["{{baseUrl}}"],
-              "path": ["wallet", "deposit"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "wallet",
+                "deposit"
+              ]
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Deposit 5000 (User A)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userAToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": 5000\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/wallet/deposit",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "wallet",
+                    "deposit"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "178"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"b2-Kry06ZpwyaFoKvY5/OR3G2FkM6c\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Mar 2026 22:20:30 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Deposit successful\",\n    \"data\": {\n        \"reference\": \"ed309e5e-ebd6-4eb4-ad86-328d7f6dff2f\",\n        \"amount\": \"5000.00\",\n        \"previousBalance\": \"0.00\",\n        \"currentBalance\": \"5000.00\"\n    }\n}"
+            }
+          ]
         },
         {
           "name": "Deposit — Invalid Amount (400)",
@@ -412,8 +1175,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{userAToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userAToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -421,10 +1190,82 @@
             },
             "url": {
               "raw": "{{baseUrl}}/wallet/deposit",
-              "host": ["{{baseUrl}}"],
-              "path": ["wallet", "deposit"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "wallet",
+                "deposit"
+              ]
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Deposit — Invalid Amount (400)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userAToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": -100\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/wallet/deposit",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "wallet",
+                    "deposit"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "94"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"5e-WudtB6wr89o3hJy1vi6aDEPrI98\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Mar 2026 22:39:14 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Validation failed\",\n    \"errors\": [\n        \"amount must not be less than 0.01\"\n    ]\n}"
+            }
+          ]
         },
         {
           "name": "Transfer by Account Number (A → B)",
@@ -454,8 +1295,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{userAToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userAToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -463,10 +1310,82 @@
             },
             "url": {
               "raw": "{{baseUrl}}/wallet/transfer",
-              "host": ["{{baseUrl}}"],
-              "path": ["wallet", "transfer"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "wallet",
+                "transfer"
+              ]
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Transfer by Account Number (A → B)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userAToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipientType\": \"ACCOUNT_NUMBER\",\n  \"recipientAccountNumber\": \"8927285575\",\n  \"amount\": 1000\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/wallet/transfer",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "wallet",
+                    "transfer"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "255"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"ff-UVErwOcnuuRNCTxrTTn90Gu4wyA\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Mar 2026 22:39:46 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Transfer successful\",\n    \"data\": {\n        \"reference\": \"12bba71a-0bfa-4d16-aceb-91127ae859bf\",\n        \"amount\": \"1000.00\",\n        \"previousBalance\": \"35100.00\",\n        \"currentBalance\": \"34100.00\",\n        \"recipient\": {\n            \"accountNumber\": \"8927285575\",\n            \"email\": \"userb@example.com\"\n        }\n    }\n}"
+            }
+          ]
         },
         {
           "name": "Transfer by Email (A → B)",
@@ -474,7 +1393,6 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "const res = pm.response.json();",
                   "pm.test('Status is 201', () => pm.response.to.have.status(201));",
@@ -482,15 +1400,34 @@
                   "pm.test('Recipient email matches', () => {",
                   "    pm.expect(res.data.recipient.email).to.equal('userb@example.com');",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{userAToken}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{userAToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userAToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -498,10 +1435,82 @@
             },
             "url": {
               "raw": "{{baseUrl}}/wallet/transfer",
-              "host": ["{{baseUrl}}"],
-              "path": ["wallet", "transfer"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "wallet",
+                "transfer"
+              ]
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Transfer by Email (A → B)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userAToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipientType\": \"EMAIL\",\n  \"recipientEmail\": \"userb@example.com\",\n  \"amount\": 500\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/wallet/transfer",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "wallet",
+                    "transfer"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "254"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"fe-iFHfU2aLttgHr2+hOsBeZXSnEug\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Mar 2026 22:40:03 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Transfer successful\",\n    \"data\": {\n        \"reference\": \"94538439-1796-44ba-af2e-d1dce430344d\",\n        \"amount\": \"500.00\",\n        \"previousBalance\": \"34100.00\",\n        \"currentBalance\": \"33600.00\",\n        \"recipient\": {\n            \"accountNumber\": \"8927285575\",\n            \"email\": \"userb@example.com\"\n        }\n    }\n}"
+            }
+          ]
         },
         {
           "name": "Transfer — Self Transfer (400)",
@@ -523,8 +1532,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{userAToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userAToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -532,10 +1547,82 @@
             },
             "url": {
               "raw": "{{baseUrl}}/wallet/transfer",
-              "host": ["{{baseUrl}}"],
-              "path": ["wallet", "transfer"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "wallet",
+                "transfer"
+              ]
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Transfer — Self Transfer (400)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userAToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipientType\": \"EMAIL\",\n  \"recipientEmail\": \"usera@example.com\",\n  \"amount\": 100\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/wallet/transfer",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "wallet",
+                    "transfer"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "57"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"39-grQcMB6hUF7rtqnu+xkeapbwEHc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Mar 2026 22:40:55 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Cannot transfer to yourself\"\n}"
+            }
+          ]
         },
         {
           "name": "Transfer — Insufficient Balance (400)",
@@ -557,8 +1644,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{userAToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userAToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -566,10 +1659,82 @@
             },
             "url": {
               "raw": "{{baseUrl}}/wallet/transfer",
-              "host": ["{{baseUrl}}"],
-              "path": ["wallet", "transfer"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "wallet",
+                "transfer"
+              ]
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Transfer — Insufficient Balance (400)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userAToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipientType\": \"ACCOUNT_NUMBER\",\n  \"recipientAccountNumber\": \"8927285575\",\n  \"amount\": 999999\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/wallet/transfer",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "wallet",
+                    "transfer"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "50"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"32-1ZeDDYQPASneA3ek0Cnjksc8wDU\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Mar 2026 22:43:01 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Insufficient balance\"\n}"
+            }
+          ]
         },
         {
           "name": "Transfer — Recipient Not Found (404)",
@@ -587,8 +1752,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{userAToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userAToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -596,10 +1767,82 @@
             },
             "url": {
               "raw": "{{baseUrl}}/wallet/transfer",
-              "host": ["{{baseUrl}}"],
-              "path": ["wallet", "transfer"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "wallet",
+                "transfer"
+              ]
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Transfer — Recipient Not Found (404)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userAToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipientType\": \"ACCOUNT_NUMBER\",\n  \"recipientAccountNumber\": \"0000000000\",\n  \"amount\": 100\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/wallet/transfer",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "wallet",
+                    "transfer"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "49"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"31-SHar6tGsJhrj73sH0ScSCw9y7zM\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Mar 2026 22:43:18 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Recipient not found\"\n}"
+            }
+          ]
         },
         {
           "name": "Transfer — Below Minimum 50 (400)",
@@ -617,8 +1860,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{userAToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userAToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -626,10 +1875,82 @@
             },
             "url": {
               "raw": "{{baseUrl}}/wallet/transfer",
-              "host": ["{{baseUrl}}"],
-              "path": ["wallet", "transfer"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "wallet",
+                "transfer"
+              ]
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Transfer — Below Minimum 50 (400)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userAToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipientType\": \"ACCOUNT_NUMBER\",\n  \"recipientAccountNumber\": \"8927285575\",\n  \"amount\": 10\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/wallet/transfer",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "wallet",
+                    "transfer"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "92"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"5c-XRznVgwe88DT+2N1qZpWu8S42Fw\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Mar 2026 22:43:43 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Validation failed\",\n    \"errors\": [\n        \"amount must not be less than 50\"\n    ]\n}"
+            }
+          ]
         },
         {
           "name": "Transfer — Missing recipientType (400)",
@@ -647,8 +1968,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{userAToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userAToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -656,10 +1983,82 @@
             },
             "url": {
               "raw": "{{baseUrl}}/wallet/transfer",
-              "host": ["{{baseUrl}}"],
-              "path": ["wallet", "transfer"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "wallet",
+                "transfer"
+              ]
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Transfer — Missing recipientType (400)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userAToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipientAccountNumber\": \"{{userBAccountNumber}}\",\n  \"amount\": 100\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/wallet/transfer",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "wallet",
+                    "transfer"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "133"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"85-Rwp4g+Fqy5c/JaKGmMmAi7B6gq0\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Mar 2026 22:44:46 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Validation failed\",\n    \"errors\": [\n        \"recipientType must be one of the following values: EMAIL, ACCOUNT_NUMBER\"\n    ]\n}"
+            }
+          ]
         },
         {
           "name": "Get Wallet After Transfers (User A)",
@@ -681,14 +2080,79 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{userAToken}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userAToken}}"
+              }
             ],
             "url": {
               "raw": "{{baseUrl}}/wallet",
-              "host": ["{{baseUrl}}"],
-              "path": ["wallet"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "wallet"
+              ]
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Get Wallet After Transfers (User A)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userAToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/wallet",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "wallet"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "118"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"76-ZbO3sw50fO0hWesVU/OMqysMBSg\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Mar 2026 22:45:08 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Wallet retrieved\",\n    \"data\": {\n        \"id\": 1,\n        \"accountBalance\": \"33600.00\",\n        \"accountNumber\": \"2287726211\"\n    }\n}"
+            }
+          ]
         },
         {
           "name": "Get Wallet (User B)",
@@ -710,14 +2174,79 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{userBToken}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userBToken}}"
+              }
             ],
             "url": {
               "raw": "{{baseUrl}}/wallet",
-              "host": ["{{baseUrl}}"],
-              "path": ["wallet"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "wallet"
+              ]
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Get Wallet (User B)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userBToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/wallet",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "wallet"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "117"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"75-AToCE6EDcBUOGJOHQGyqaxzDggk\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Mar 2026 22:45:34 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Wallet retrieved\",\n    \"data\": {\n        \"id\": 2,\n        \"accountBalance\": \"6600.00\",\n        \"accountNumber\": \"8927285575\"\n    }\n}"
+            }
+          ]
         }
       ]
     },
@@ -748,14 +2277,79 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{userAToken}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userAToken}}"
+              }
             ],
             "url": {
               "raw": "{{baseUrl}}/transactions",
-              "host": ["{{baseUrl}}"],
-              "path": ["transactions"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "transactions"
+              ]
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Get Transactions — Default (User A)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userAToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/transactions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transactions"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "3796"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"ed4-WkK/ihLQnzrlAOSlJ2vc2k0dlLw\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Mar 2026 22:49:48 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Transactions retrieved\",\n    \"data\": {\n        \"transactions\": [\n            {\n                \"id\": 15,\n                \"reference\": \"ea3fca16-e48a-4185-9e3f-6338e8f5d03c\",\n                \"transactionType\": \"DEBIT\",\n                \"amount\": \"500.00\",\n                \"previousBalance\": \"33600.00\",\n                \"currentBalance\": \"33100.00\",\n                \"description\": \"Transfer to userb@example.com\",\n                \"senderDebitTransRef\": \"ea3fca16-e48a-4185-9e3f-6338e8f5d03c\",\n                \"receiverCreditTransRef\": \"2ec353a1-fc33-4c03-b3eb-8e397cb5676b\",\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:49:41.788Z\"\n            },\n            {\n                \"id\": 13,\n                \"reference\": \"94538439-1796-44ba-af2e-d1dce430344d\",\n                \"transactionType\": \"DEBIT\",\n                \"amount\": \"500.00\",\n                \"previousBalance\": \"34100.00\",\n                \"currentBalance\": \"33600.00\",\n                \"description\": \"Transfer to userb@example.com\",\n                \"senderDebitTransRef\": \"94538439-1796-44ba-af2e-d1dce430344d\",\n                \"receiverCreditTransRef\": \"fccadef7-0f45-4b8c-bf82-0cdf02fa3344\",\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:40:03.417Z\"\n            },\n            {\n                \"id\": 11,\n                \"reference\": \"12bba71a-0bfa-4d16-aceb-91127ae859bf\",\n                \"transactionType\": \"DEBIT\",\n                \"amount\": \"1000.00\",\n                \"previousBalance\": \"35100.00\",\n                \"currentBalance\": \"34100.00\",\n                \"description\": \"Transfer to userb@example.com\",\n                \"senderDebitTransRef\": \"12bba71a-0bfa-4d16-aceb-91127ae859bf\",\n                \"receiverCreditTransRef\": \"726feab8-1dde-4a0b-bc29-434d77300037\",\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:39:46.316Z\"\n            },\n            {\n                \"id\": 10,\n                \"reference\": \"1fb8d767-a60c-4e5d-a509-11491ebf8170\",\n                \"transactionType\": \"CREDIT\",\n                \"amount\": \"5000.00\",\n                \"previousBalance\": \"30100.00\",\n                \"currentBalance\": \"35100.00\",\n                \"description\": \"Deposit from external source\",\n                \"senderDebitTransRef\": null,\n                \"receiverCreditTransRef\": null,\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:39:08.233Z\"\n            },\n            {\n                \"id\": 9,\n                \"reference\": \"de3341f0-2cce-48a0-a6fe-cd5db9729652\",\n                \"transactionType\": \"CREDIT\",\n                \"amount\": \"5000.00\",\n                \"previousBalance\": \"25100.00\",\n                \"currentBalance\": \"30100.00\",\n                \"description\": \"Deposit from external source\",\n                \"senderDebitTransRef\": null,\n                \"receiverCreditTransRef\": null,\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:37:55.689Z\"\n            },\n            {\n                \"id\": 8,\n                \"reference\": \"0f3e32df-62ee-4f30-8cbf-9fef8507358a\",\n                \"transactionType\": \"CREDIT\",\n                \"amount\": \"5000.00\",\n                \"previousBalance\": \"20100.00\",\n                \"currentBalance\": \"25100.00\",\n                \"description\": \"Deposit from external source\",\n                \"senderDebitTransRef\": null,\n                \"receiverCreditTransRef\": null,\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:37:51.466Z\"\n            },\n            {\n                \"id\": 7,\n                \"reference\": \"07dc7a26-9398-43d0-8bba-2307392e5d39\",\n                \"transactionType\": \"CREDIT\",\n                \"amount\": \"100.00\",\n                \"previousBalance\": \"20000.00\",\n                \"currentBalance\": \"20100.00\",\n                \"description\": \"Deposit from external source\",\n                \"senderDebitTransRef\": null,\n                \"receiverCreditTransRef\": null,\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:37:22.862Z\"\n            },\n            {\n                \"id\": 6,\n                \"reference\": \"1e27a648-4eda-48df-80f2-2aeb516ba983\",\n                \"transactionType\": \"CREDIT\",\n                \"amount\": \"5000.00\",\n                \"previousBalance\": \"15000.00\",\n                \"currentBalance\": \"20000.00\",\n                \"description\": \"Deposit from external source\",\n                \"senderDebitTransRef\": null,\n                \"receiverCreditTransRef\": null,\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:37:15.411Z\"\n            },\n            {\n                \"id\": 5,\n                \"reference\": \"ab7d8492-b8b0-402a-9c6d-79771e2e0cf9\",\n                \"transactionType\": \"CREDIT\",\n                \"amount\": \"5000.00\",\n                \"previousBalance\": \"10000.00\",\n                \"currentBalance\": \"15000.00\",\n                \"description\": \"Deposit from external source\",\n                \"senderDebitTransRef\": null,\n                \"receiverCreditTransRef\": null,\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:37:12.481Z\"\n            },\n            {\n                \"id\": 4,\n                \"reference\": \"e154036a-5ca0-4440-a208-328765a64e36\",\n                \"transactionType\": \"CREDIT\",\n                \"amount\": \"5000.00\",\n                \"previousBalance\": \"5000.00\",\n                \"currentBalance\": \"10000.00\",\n                \"description\": \"Deposit from external source\",\n                \"senderDebitTransRef\": null,\n                \"receiverCreditTransRef\": null,\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:37:11.100Z\"\n            },\n            {\n                \"id\": 3,\n                \"reference\": \"f9ceba0d-d8d3-4a6d-9a0e-27e784bb5485\",\n                \"transactionType\": \"CREDIT\",\n                \"amount\": \"5000.00\",\n                \"previousBalance\": \"0.00\",\n                \"currentBalance\": \"5000.00\",\n                \"description\": \"Deposit from external source\",\n                \"senderDebitTransRef\": null,\n                \"receiverCreditTransRef\": null,\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:33:32.951Z\"\n            }\n        ],\n        \"meta\": {\n            \"page\": 1,\n            \"limit\": 20,\n            \"total\": 11,\n            \"totalPages\": 1\n        }\n    }\n}"
+            }
+          ]
         },
         {
           "name": "Get Transactions — Filter CREDIT",
@@ -779,17 +2373,91 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{userAToken}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userAToken}}"
+              }
             ],
             "url": {
               "raw": "{{baseUrl}}/transactions?transactionType=CREDIT",
-              "host": ["{{baseUrl}}"],
-              "path": ["transactions"],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "transactions"
+              ],
               "query": [
-                { "key": "transactionType", "value": "CREDIT" }
+                {
+                  "key": "transactionType",
+                  "value": "CREDIT"
+                }
               ]
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Get Transactions — Filter CREDIT",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userAToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/transactions?transactionType=CREDIT",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transactions"
+                  ],
+                  "query": [
+                    {
+                      "key": "transactionType",
+                      "value": "CREDIT"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "2645"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"a55-0b7roYBUy0At3ZDIqrdKJSBK/4E\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Mar 2026 22:50:09 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Transactions retrieved\",\n    \"data\": {\n        \"transactions\": [\n            {\n                \"id\": 10,\n                \"reference\": \"1fb8d767-a60c-4e5d-a509-11491ebf8170\",\n                \"transactionType\": \"CREDIT\",\n                \"amount\": \"5000.00\",\n                \"previousBalance\": \"30100.00\",\n                \"currentBalance\": \"35100.00\",\n                \"description\": \"Deposit from external source\",\n                \"senderDebitTransRef\": null,\n                \"receiverCreditTransRef\": null,\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:39:08.233Z\"\n            },\n            {\n                \"id\": 9,\n                \"reference\": \"de3341f0-2cce-48a0-a6fe-cd5db9729652\",\n                \"transactionType\": \"CREDIT\",\n                \"amount\": \"5000.00\",\n                \"previousBalance\": \"25100.00\",\n                \"currentBalance\": \"30100.00\",\n                \"description\": \"Deposit from external source\",\n                \"senderDebitTransRef\": null,\n                \"receiverCreditTransRef\": null,\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:37:55.689Z\"\n            },\n            {\n                \"id\": 8,\n                \"reference\": \"0f3e32df-62ee-4f30-8cbf-9fef8507358a\",\n                \"transactionType\": \"CREDIT\",\n                \"amount\": \"5000.00\",\n                \"previousBalance\": \"20100.00\",\n                \"currentBalance\": \"25100.00\",\n                \"description\": \"Deposit from external source\",\n                \"senderDebitTransRef\": null,\n                \"receiverCreditTransRef\": null,\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:37:51.466Z\"\n            },\n            {\n                \"id\": 7,\n                \"reference\": \"07dc7a26-9398-43d0-8bba-2307392e5d39\",\n                \"transactionType\": \"CREDIT\",\n                \"amount\": \"100.00\",\n                \"previousBalance\": \"20000.00\",\n                \"currentBalance\": \"20100.00\",\n                \"description\": \"Deposit from external source\",\n                \"senderDebitTransRef\": null,\n                \"receiverCreditTransRef\": null,\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:37:22.862Z\"\n            },\n            {\n                \"id\": 6,\n                \"reference\": \"1e27a648-4eda-48df-80f2-2aeb516ba983\",\n                \"transactionType\": \"CREDIT\",\n                \"amount\": \"5000.00\",\n                \"previousBalance\": \"15000.00\",\n                \"currentBalance\": \"20000.00\",\n                \"description\": \"Deposit from external source\",\n                \"senderDebitTransRef\": null,\n                \"receiverCreditTransRef\": null,\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:37:15.411Z\"\n            },\n            {\n                \"id\": 5,\n                \"reference\": \"ab7d8492-b8b0-402a-9c6d-79771e2e0cf9\",\n                \"transactionType\": \"CREDIT\",\n                \"amount\": \"5000.00\",\n                \"previousBalance\": \"10000.00\",\n                \"currentBalance\": \"15000.00\",\n                \"description\": \"Deposit from external source\",\n                \"senderDebitTransRef\": null,\n                \"receiverCreditTransRef\": null,\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:37:12.481Z\"\n            },\n            {\n                \"id\": 4,\n                \"reference\": \"e154036a-5ca0-4440-a208-328765a64e36\",\n                \"transactionType\": \"CREDIT\",\n                \"amount\": \"5000.00\",\n                \"previousBalance\": \"5000.00\",\n                \"currentBalance\": \"10000.00\",\n                \"description\": \"Deposit from external source\",\n                \"senderDebitTransRef\": null,\n                \"receiverCreditTransRef\": null,\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:37:11.100Z\"\n            },\n            {\n                \"id\": 3,\n                \"reference\": \"f9ceba0d-d8d3-4a6d-9a0e-27e784bb5485\",\n                \"transactionType\": \"CREDIT\",\n                \"amount\": \"5000.00\",\n                \"previousBalance\": \"0.00\",\n                \"currentBalance\": \"5000.00\",\n                \"description\": \"Deposit from external source\",\n                \"senderDebitTransRef\": null,\n                \"receiverCreditTransRef\": null,\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:33:32.951Z\"\n            }\n        ],\n        \"meta\": {\n            \"page\": 1,\n            \"limit\": 20,\n            \"total\": 8,\n            \"totalPages\": 1\n        }\n    }\n}"
+            }
+          ]
         },
         {
           "name": "Get Transactions — Filter DEBIT",
@@ -813,17 +2481,91 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{userAToken}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userAToken}}"
+              }
             ],
             "url": {
               "raw": "{{baseUrl}}/transactions?transactionType=DEBIT",
-              "host": ["{{baseUrl}}"],
-              "path": ["transactions"],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "transactions"
+              ],
               "query": [
-                { "key": "transactionType", "value": "DEBIT" }
+                {
+                  "key": "transactionType",
+                  "value": "DEBIT"
+                }
               ]
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Get Transactions — Filter DEBIT",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userAToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/transactions?transactionType=DEBIT",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transactions"
+                  ],
+                  "query": [
+                    {
+                      "key": "transactionType",
+                      "value": "DEBIT"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1281"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"501-lsxZoTx9KEAxih1jeIafTbZxEUM\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Mar 2026 22:50:23 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Transactions retrieved\",\n    \"data\": {\n        \"transactions\": [\n            {\n                \"id\": 15,\n                \"reference\": \"ea3fca16-e48a-4185-9e3f-6338e8f5d03c\",\n                \"transactionType\": \"DEBIT\",\n                \"amount\": \"500.00\",\n                \"previousBalance\": \"33600.00\",\n                \"currentBalance\": \"33100.00\",\n                \"description\": \"Transfer to userb@example.com\",\n                \"senderDebitTransRef\": \"ea3fca16-e48a-4185-9e3f-6338e8f5d03c\",\n                \"receiverCreditTransRef\": \"2ec353a1-fc33-4c03-b3eb-8e397cb5676b\",\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:49:41.788Z\"\n            },\n            {\n                \"id\": 13,\n                \"reference\": \"94538439-1796-44ba-af2e-d1dce430344d\",\n                \"transactionType\": \"DEBIT\",\n                \"amount\": \"500.00\",\n                \"previousBalance\": \"34100.00\",\n                \"currentBalance\": \"33600.00\",\n                \"description\": \"Transfer to userb@example.com\",\n                \"senderDebitTransRef\": \"94538439-1796-44ba-af2e-d1dce430344d\",\n                \"receiverCreditTransRef\": \"fccadef7-0f45-4b8c-bf82-0cdf02fa3344\",\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:40:03.417Z\"\n            },\n            {\n                \"id\": 11,\n                \"reference\": \"12bba71a-0bfa-4d16-aceb-91127ae859bf\",\n                \"transactionType\": \"DEBIT\",\n                \"amount\": \"1000.00\",\n                \"previousBalance\": \"35100.00\",\n                \"currentBalance\": \"34100.00\",\n                \"description\": \"Transfer to userb@example.com\",\n                \"senderDebitTransRef\": \"12bba71a-0bfa-4d16-aceb-91127ae859bf\",\n                \"receiverCreditTransRef\": \"726feab8-1dde-4a0b-bc29-434d77300037\",\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:39:46.316Z\"\n            }\n        ],\n        \"meta\": {\n            \"page\": 1,\n            \"limit\": 20,\n            \"total\": 3,\n            \"totalPages\": 1\n        }\n    }\n}"
+            }
+          ]
         },
         {
           "name": "Get Transactions — Pagination",
@@ -847,18 +2589,99 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{userAToken}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userAToken}}"
+              }
             ],
             "url": {
               "raw": "{{baseUrl}}/transactions?page=1&limit=2",
-              "host": ["{{baseUrl}}"],
-              "path": ["transactions"],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "transactions"
+              ],
               "query": [
-                { "key": "page", "value": "1" },
-                { "key": "limit", "value": "2" }
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "2"
+                }
               ]
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Get Transactions — Pagination",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userAToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/transactions?page=1&limit=2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transactions"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "2"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "897"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"381-9UJEMQbw+klLL3A3OVYMi98RHco\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Mar 2026 22:50:35 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Transactions retrieved\",\n    \"data\": {\n        \"transactions\": [\n            {\n                \"id\": 15,\n                \"reference\": \"ea3fca16-e48a-4185-9e3f-6338e8f5d03c\",\n                \"transactionType\": \"DEBIT\",\n                \"amount\": \"500.00\",\n                \"previousBalance\": \"33600.00\",\n                \"currentBalance\": \"33100.00\",\n                \"description\": \"Transfer to userb@example.com\",\n                \"senderDebitTransRef\": \"ea3fca16-e48a-4185-9e3f-6338e8f5d03c\",\n                \"receiverCreditTransRef\": \"2ec353a1-fc33-4c03-b3eb-8e397cb5676b\",\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:49:41.788Z\"\n            },\n            {\n                \"id\": 13,\n                \"reference\": \"94538439-1796-44ba-af2e-d1dce430344d\",\n                \"transactionType\": \"DEBIT\",\n                \"amount\": \"500.00\",\n                \"previousBalance\": \"34100.00\",\n                \"currentBalance\": \"33600.00\",\n                \"description\": \"Transfer to userb@example.com\",\n                \"senderDebitTransRef\": \"94538439-1796-44ba-af2e-d1dce430344d\",\n                \"receiverCreditTransRef\": \"fccadef7-0f45-4b8c-bf82-0cdf02fa3344\",\n                \"userId\": 1,\n                \"createdAt\": \"2026-03-14T22:40:03.417Z\"\n            }\n        ],\n        \"meta\": {\n            \"page\": 1,\n            \"limit\": 2,\n            \"total\": 11,\n            \"totalPages\": 6\n        }\n    }\n}"
+            }
+          ]
         },
         {
           "name": "Get Transactions — No Auth (401)",
@@ -878,10 +2701,67 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/transactions",
-              "host": ["{{baseUrl}}"],
-              "path": ["transactions"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "transactions"
+              ]
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Get Transactions — No Auth (401)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/transactions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transactions"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "42"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2a-H4CLXoxSRMwDtqUCBiDzMCvYSTQ\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Mar 2026 22:50:44 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Unauthorized\"\n}"
+            }
+          ]
         },
         {
           "name": "Get Transactions (User B)",
@@ -904,16 +2784,113 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{userBToken}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userBToken}}"
+              }
             ],
             "url": {
               "raw": "{{baseUrl}}/transactions",
-              "host": ["{{baseUrl}}"],
-              "path": ["transactions"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "transactions"
+              ]
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Get Transactions (User B)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userBToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/transactions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transactions"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1506"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"5e2-AF7/M45SPCUvRLgFmfNDhCTQ6oo\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Mar 2026 22:45:58 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Transactions retrieved\",\n    \"data\": {\n        \"transactions\": [\n            {\n                \"id\": 14,\n                \"reference\": \"fccadef7-0f45-4b8c-bf82-0cdf02fa3344\",\n                \"transactionType\": \"CREDIT\",\n                \"amount\": \"500.00\",\n                \"previousBalance\": \"6100.00\",\n                \"currentBalance\": \"6600.00\",\n                \"description\": \"Transfer from account 1\",\n                \"senderDebitTransRef\": \"94538439-1796-44ba-af2e-d1dce430344d\",\n                \"receiverCreditTransRef\": \"fccadef7-0f45-4b8c-bf82-0cdf02fa3344\",\n                \"userId\": 2,\n                \"createdAt\": \"2026-03-14T22:40:03.421Z\"\n            },\n            {\n                \"id\": 12,\n                \"reference\": \"726feab8-1dde-4a0b-bc29-434d77300037\",\n                \"transactionType\": \"CREDIT\",\n                \"amount\": \"1000.00\",\n                \"previousBalance\": \"5100.00\",\n                \"currentBalance\": \"6100.00\",\n                \"description\": \"Transfer from account 1\",\n                \"senderDebitTransRef\": \"12bba71a-0bfa-4d16-aceb-91127ae859bf\",\n                \"receiverCreditTransRef\": \"726feab8-1dde-4a0b-bc29-434d77300037\",\n                \"userId\": 2,\n                \"createdAt\": \"2026-03-14T22:39:46.320Z\"\n            },\n            {\n                \"id\": 2,\n                \"reference\": \"4e2f26fe-9002-4eee-9345-7fd7adc38281\",\n                \"transactionType\": \"CREDIT\",\n                \"amount\": \"100.00\",\n                \"previousBalance\": \"5000.00\",\n                \"currentBalance\": \"5100.00\",\n                \"description\": \"Deposit from external source\",\n                \"senderDebitTransRef\": null,\n                \"receiverCreditTransRef\": null,\n                \"userId\": 2,\n                \"createdAt\": \"2026-03-14T22:20:57.346Z\"\n            },\n            {\n                \"id\": 1,\n                \"reference\": \"ed309e5e-ebd6-4eb4-ad86-328d7f6dff2f\",\n                \"transactionType\": \"CREDIT\",\n                \"amount\": \"5000.00\",\n                \"previousBalance\": \"0.00\",\n                \"currentBalance\": \"5000.00\",\n                \"description\": \"Deposit from external source\",\n                \"senderDebitTransRef\": null,\n                \"receiverCreditTransRef\": null,\n                \"userId\": 2,\n                \"createdAt\": \"2026-03-14T22:20:30.402Z\"\n            }\n        ],\n        \"meta\": {\n            \"page\": 1,\n            \"limit\": 20,\n            \"total\": 4,\n            \"totalPages\": 1\n        }\n    }\n}"
+            }
+          ]
         }
       ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "userAToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "userBToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "userBAccountNumber",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "userBEmail",
+      "value": "userb@example.com",
+      "type": "string"
     }
   ]
 }
