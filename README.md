@@ -15,6 +15,7 @@ A wallet system REST API built with NestJS, TypeORM, and MySQL. Supports user re
 - [Database Schema Design](#database-schema-design)
 - [Concurrency and Race Condition Handling](#concurrency-and-race-condition-handling)
 - [Trade-offs](#trade-offs)
+- [Limitations / Scope](#limitations--scope)
 - [Running Tests](#running-tests)
 
 ## Tech Stack
@@ -324,6 +325,16 @@ User and wallet creation happen in a single atomic transaction. No explicit lock
 | **Stateless JWT (no token revocation)** | Simple, scalable authentication with no session store | Tokens remain valid until expiry. Immediate revocation would require a token blacklist (Redis), adding infrastructure complexity. |
 | **Clean Architecture** | Clear separation of concerns; domain logic is framework-agnostic and independently testable | More files and indirection compared to a flat structure. Worthwhile for maintainability as the codebase grows. |
 | **`manager.update()` for balance writes** | Bypasses TypeORM change detection issues with decimal columns; issues direct UPDATE queries | Slightly less idiomatic than `manager.save()`, but more reliable for financial precision fields. |
+
+## Limitations / Scope
+
+This project is a **proof of concept** focused on the internal wallet-to-wallet system. The following capabilities are not implemented:
+
+- **Bank account validation** — No integration with external services to verify real bank account details.
+- **Bank listing** — No endpoint to fetch a list of supported external banks.
+- **External bank transfers** — All transfers are wallet-to-wallet within the platform. Sending funds to or receiving funds from an external bank account is not supported.
+
+Integrating with a real banking API (e.g. Paystack, Flutterwave) would be the natural next step to support these features.
 
 ## Running Tests
 
